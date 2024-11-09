@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="{% static 'adminpanel/styles.css' %}">
+</head>
+<body>
+    <header>
+        <h1>Admin Panel</h1>
+    </header>
+
+    <section id="project-management">
+        <h2>Manage Projects</h2>
+        <form action="{% url 'add_project' %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <input type="text" name="name" placeholder="Project Name" required>
+            <textarea name="description" placeholder="Project Description" required></textarea>
+            <input type="file" name="image" required>
+            <button type="submit">Add Project</button>
+        </form>
+    </section>
+
+    <section id="client-management">
+        <h2>Manage Clients</h2>
+        <form action="{% url 'add_client' %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <input type="text" name="name" placeholder="Client Name" required>
+            <textarea name="description" placeholder="Client Description" required></textarea>
+            <input type="text" name="designation" placeholder="Client Designation" required>
+            <input type="file" name="image" required>
+            <button type="submit">Add Client</button>
+        </form>
+    </section>
+
+    <section id="contact-forms">
+        <h2>Contact Form Submissions</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Full Name</th>
+                    <th>Email</th>
+                    <th>Mobile</th>
+                    <th>City</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for contact in contacts %}
+                <tr>
+                    <td>{{ contact.full_name }}</td>
+                    <td>{{ contact.email }}</td>
+                    <td>{{ contact.mobile_number }}</td>
+                    <td>{{ contact.city }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </section>
+
+    <section id="subscriptions">
+        <h2>Newsletter Subscriptions</h2>
+        <ul>
+            {% for subscription in subscriptions %}
+            <li>{{ subscription.email }}</li>
+            {% endfor %}
+        </ul>
+    </section>
+</body>
+</html>

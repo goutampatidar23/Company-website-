@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Landing Page</title>
+    <link rel="stylesheet" href="{% static 'landing/styles.css' %}">
+</head>
+<body>
+    <header>
+        <h1>Welcome to Our E-commerce Platform</h1>
+    </header>
+
+    <!-- Projects Section -->
+    <section id="projects">
+        <h2>Our Projects</h2>
+        <div class="project-list">
+            {% for project in projects %}
+            <div class="project">
+                <img src="{home.svg}" alt="{{ project.name }}">
+                <h3>{{ project.name }}</h3>
+                <p>{{ project.description }}</p>
+                <button>Read More</button>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+
+    <!-- Happy Clients Section -->
+    <section id="clients">
+        <h2>Happy Clients</h2>
+        <div class="client-list">
+            {% for client in clients %}
+            <div class="client">
+                <img src="{Frame.svg}" alt="{{ client.name }}">
+                <h3>{{ client.name }}</h3>
+                <p>{{ client.description }}</p>
+                <small>{{ client.designation }}</small>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+
+    <!-- Contact Form -->
+    <section id="contact">
+        <h2>Contact Us</h2>
+        <form action="{% url 'submit_contact' %}" method="post">
+            {% csrf_token %}
+            <input type="text" name="full_name" placeholder="Full Name" required>
+            <input type="email" name="email" placeholder="Email Address" required>
+            <input type="text" name="mobile_number" placeholder="Mobile Number" required>
+            <input type="text" name="city" placeholder="City" required>
+            <button type="submit">Submit</button>
+        </form>
+    </section>
+
+    <!-- Newsletter Subscription -->
+    <section id="newsletter">
+        <h2>Subscribe to our Newsletter</h2>
+        <form action="{% url 'subscribe_newsletter' %}" method="post">
+            {% csrf_token %}
+            <input type="email" name="email" placeholder="Enter your email" required>
+            <button type="submit">Subscribe</button>
+        </form>
+    </section>
+</body>
+</html>
